@@ -1,0 +1,169 @@
+<div class="bg-white rounded-2xl shadow-md p-6">
+
+    <div class="flex justify-between items-center mb-6">
+
+        <h2 class="text-2xl font-bold text-gray-800">
+            Productos
+        </h2>
+
+        <button
+            class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg">
+
+            + Agregar Producto
+
+        </button>
+
+    </div>
+
+    <input
+        type="text"
+        placeholder="Buscar producto..."
+        class="border rounded-lg px-4 py-2 w-full mb-6">
+
+    <table class="w-full border-collapse">
+
+        <thead>
+
+            <tr class="bg-slate-100">
+
+                <th class="p-3 text-left">ID</th>
+                <th class="p-3 text-left">Nombre</th>
+                <th class="p-3 text-left">Descripción</th>
+                <th class="p-3 text-left">Precio</th>
+                <th class="p-3 text-left">Stock</th>
+                <th class="p-3 text-left">Creado</th>
+                <th class="p-3 text-center">Acciones</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @for(product of products; track product.id){
+
+                <tr class="border-b">
+
+                    <td class="p-3">{{product.id}}</td>
+                    <td class="p-3">{{product.name}}</td>
+                    <td class="p-3">{{product.description}}</td>
+                    <td class="p-3">S/ {{product.price}}</td>
+                    <td class="p-3">{{product.stock}}</td>
+                    <td class="p-3">{{product.createdAt}}</td>
+
+                    <td class="p-3">
+
+    <div class="flex items-center justify-center gap-4">
+
+        <button
+    (click)="openModal(product)"
+    class="bg-blue-100 text-blue-600 p-2 rounded-lg hover:bg-blue-200">
+
+    ✏️
+
+</button>
+
+        <label class="relative inline-flex items-center cursor-pointer">
+
+            <input
+                type="checkbox"
+                class="sr-only peer"
+                [checked]="true">
+
+            <div
+                class="w-11 h-6 bg-gray-300 rounded-full
+                       peer peer-checked:bg-green-500
+                       after:content-['']
+                       after:absolute
+                       after:top-[2px]
+                       after:left-[2px]
+                       after:bg-white
+                       after:border
+                       after:rounded-full
+                       after:h-5
+                       after:w-5
+                       after:transition-all
+                       peer-checked:after:translate-x-full">
+
+            </div>
+
+        </label>
+
+    </div>
+
+</td>
+
+                </tr>
+
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+@if(modalOpen){
+
+<div
+    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+    <div class="bg-white rounded-2xl shadow-xl w-[500px] p-6">
+
+        <h2 class="text-2xl font-bold mb-6">
+
+            Editar Producto
+
+        </h2>
+
+        <div class="space-y-4">
+
+            <input
+                [(ngModel)]="selectedProduct.name"
+                class="w-full border rounded-lg p-3"
+                placeholder="Nombre">
+
+            <textarea
+                [(ngModel)]="selectedProduct.description"
+                class="w-full border rounded-lg p-3"
+                placeholder="Descripción">
+            </textarea>
+
+            <input
+                [(ngModel)]="selectedProduct.price"
+                type="number"
+                class="w-full border rounded-lg p-3"
+                placeholder="Precio">
+
+            <input
+                [(ngModel)]="selectedProduct.stock"
+                type="number"
+                class="w-full border rounded-lg p-3"
+                placeholder="Stock">
+
+        </div>
+
+        <div class="flex justify-end gap-3 mt-6">
+
+            <button
+                (click)="closeModal()"
+                class="px-4 py-2 border rounded-lg">
+
+                Cancelar
+
+            </button>
+
+            <button
+                class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg">
+
+                Guardar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+}
