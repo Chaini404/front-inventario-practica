@@ -1,50 +1,96 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ProductService } from '../../services/product.service';
+
+import { Product } from '../../models/product.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-product',
-  standalone: true,
-  imports: [
+  selector:'app-product',
+  standalone:true,
+  imports:[
     CommonModule,
     FormsModule
   ],
-  templateUrl: './product.component.html'
+  templateUrl:'./product.component.html'
 })
-export class Product {
+export class ProductComponent {
 
-  products = [
-    {
-      id: 1,
-      name: 'Laptop HP',
-      description: 'Core i5 16GB RAM',
-      price: 2500,
-      stock: 10,
-      createdAt: '18/06/2026',
-      active: true
-    },
-    {
-      id: 2,
-      name: 'Mouse Logitech',
-      description: 'Inalámbrico',
-      price: 80,
-      stock: 50,
-      createdAt: '18/06/2026',
-      active: false
-    }
-  ];
 
-  modalOpen = false;
+products:Product[]=[];
 
-  selectedProduct: any = null;
 
-  openModal(product: any) {
-    this.selectedProduct = { ...product };
-    this.modalOpen = true;
-  }
 
-  closeModal() {
-    this.modalOpen = false;
-  }
+constructor(
+ private productService:ProductService
+){}
+
+
+
+ngOnInit(){
+
+ this.loadProducts();
+
+}
+
+
+
+
+loadProducts(){
+
+ this.productService
+ .getProducts()
+ .subscribe({
+
+   next:(data)=>{
+
+    this.products=data;
+
+   },
+
+
+   error:(error)=>{
+
+    console.log(error);
+
+   }
+
+ });
+
+}
+
+changeStatus(product:Product){
+
+
+if(product.active){
+
+
+ this.productService
+ .deactivateProduct(product.id)
+ .subscribe(()=>{
+
+    product.active=false;
+
+ });
+
+
+}else{
+
+
+ this.productService
+ .activateProduct(product.id)
+ .subscribe(()=>{
+
+    product.active=true;
+
+ });
+
+
+}
+
+
+}
+
 
 }

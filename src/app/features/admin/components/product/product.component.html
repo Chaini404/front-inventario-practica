@@ -68,7 +68,9 @@
             <input
                 type="checkbox"
                 class="sr-only peer"
-                [checked]="true">
+                [checked]="product.active"
+(change)="changeStatus(product)"
+                >
 
             <div
                 class="w-11 h-6 bg-gray-300 rounded-full
