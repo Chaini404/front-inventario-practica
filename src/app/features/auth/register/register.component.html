@@ -40,9 +40,16 @@
                 </label>
 
                 <input
-                    type="email"
-                    formControlName="correo"
-                    class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                type="email"
+                formControlName="email"
+                class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="correo@ejemplo.com">
+                <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" 
+                class="text-red-500 text-sm mt-1">
+                Ingresa un correo válido
+            </div>
+
             </div>
 
             <div class="mb-4">
@@ -67,11 +74,21 @@
                     class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
+            
+                <div *ngIf="error" class="text-red-500 text-sm text-center mt-4">
+                {{ error }}
+                </div>
+
+                <div *ngIf="mensaje" class="text-green-500 text-sm text-center mt-4">
+                {{ mensaje }}
+                </div>
             <button
                 type="submit"
-                class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                [disabled]="loading"
+                class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition disabled:opacity-50">
 
-                Registrarse
+                {{ loading ? 'Registrando...' : 'Registrarse' }}
+
 
             </button>
 

@@ -41,7 +41,8 @@ export const routes: Routes = [
         path: 'productos',
         loadComponent: () =>
           import('./features/admin/components/product/product.component')
-            .then(m => m.Product)
+            .then(m => m.ProductComponent)
+
       },
 
       {

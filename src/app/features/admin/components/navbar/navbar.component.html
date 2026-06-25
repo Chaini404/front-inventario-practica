@@ -6,6 +6,7 @@
 
             <div
                 class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600">
+
             </div>
 
             <h1 class="font-bold text-xl text-gray-800">
@@ -14,16 +15,51 @@
 
         </div>
 
-        <div class="flex items-center gap-3">
+        <!-- Usuario -->
+        <div class="relative">
 
-            <span class="font-medium text-gray-700">
-                {{ username }}
-            </span>
+            <button
+    (click)="mostrarMenu = !mostrarMenu"
+    class="flex items-center gap-3">
 
+    <span>Bienvenido, {{ username }}</span>
+
+    <div
+        class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white">
+
+        {{ username?.charAt(0) }}
+
+    </div>
+
+</button>
+
+<div
+    *ngIf="mostrarMenu"
+    class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
+
+    <button
+        (click)="cerrarSesion()"
+        class="w-full text-left px-4 py-3 hover:bg-gray-100">
+
+        Cerrar sesión
+
+    </button>
+
+</div>
+
+            <!-- Menú desplegable -->
             <div
-                class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                *ngIf="mostrarMenu"
+                class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
 
-                A
+                <button
+                    (click)="cerrarSesion()"
+                    class="w-full text-left px-4 py-3 hover:bg-red-50 text-red-600">
+
+                    Cerrar sesión
+
+                </button>
+
 
             </div>
 
