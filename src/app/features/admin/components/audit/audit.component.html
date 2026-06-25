@@ -1,0 +1,43 @@
+<div class="bg-white rounded-2xl shadow-md p-6">
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+        Auditoría
+    </h2>
+
+    <table class="w-full">
+
+        <thead>
+
+            <tr class="bg-slate-100">
+
+                <th class="p-3 text-left">ID</th>
+                <th class="p-3 text-left">Usuario</th>
+                <th class="p-3 text-left">Acción</th>
+                <th class="p-3 text-left">Producto</th>
+                <th class="p-3 text-left">Fecha</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @for(audit of audits; track audit.id){
+
+                <tr class="border-b">
+
+                    <td class="p-3">{{audit.id}}</td>
+                    <td class="p-3">{{audit.username}}</td>
+                    <td class="p-3">{{audit.action}}</td>
+                    <td class="p-3">{{audit.productId}}</td>
+                    <td class="p-3">{{audit.createdAt}}</td>
+
+                </tr>
+
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
