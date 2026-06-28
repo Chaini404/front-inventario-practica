@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,14 +20,20 @@ export class Navbar {
   // Variable para mostrar u ocultar el menú
   mostrarMenu: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+  private authService: AuthService,
+  private router: Router
+) {}
 
   ngOnInit() {
     this.username = this.authService.getUsername();
   }
 
-  cerrarSesion() {
-    this.authService.logout(); // si tienes este método
-  }
+ cerrarSesion() {
 
+  this.authService.logout();
+
+  this.router.navigate(['/login']);
+
+}
 }

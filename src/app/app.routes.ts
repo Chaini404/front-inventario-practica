@@ -49,7 +49,7 @@ export const routes: Routes = [
         path: 'usuarios',
         loadComponent: () =>
           import('./features/admin/components/user/user.component')
-            .then(m => m.User)
+            .then(m => m.UserComponent)
       },
        {
         path: 'auditoria',

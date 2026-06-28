@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { AuthService } from '../../../auth/services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-user',
@@ -11,28 +13,47 @@ import { FormsModule } from '@angular/forms';
   ],
   templateUrl: './user.component.html'
 })
-export class User {
+export class UserComponent implements OnInit {
+private cdr = inject(ChangeDetectorRef);
+  private authService = inject(AuthService);
 
-  users = [
-    {
-      id: 1,
-      username: 'admin',
-      role: 'ADMIN',
-      active: true
-    },
-    {
-      id: 2,
-      username: 'juan',
-      role: 'EMPLOYEE',
-      active: false
-    }
-  ];
+  users: User[] = [];
 
   modalOpen = false;
 
-  selectedUser: any = null;
+  selectedUser: User | null = null;
 
-  openModal(user: any) {
+
+  ngOnInit(): void {
+      console.log("ENTRO USER COMPONENT");
+
+    this.loadUsers();
+  }
+
+
+ loadUsers(): void {
+
+  this.authService.getUsers().subscribe({
+
+    next: (data) => {
+
+      console.log("DATA:", data);
+
+      this.users = data;
+
+      this.cdr.detectChanges();
+
+    },
+
+    error: (error) => {
+      console.error('Error cargando usuarios', error);
+    }
+
+  });
+
+}
+
+  openModal(user: User): void {
 
     this.selectedUser = { ...user };
 
@@ -40,9 +61,12 @@ export class User {
 
   }
 
-  closeModal() {
+
+  closeModal(): void {
 
     this.modalOpen = false;
+
+    this.selectedUser = null;
 
   }
 
