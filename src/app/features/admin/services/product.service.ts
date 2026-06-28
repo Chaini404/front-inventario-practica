@@ -8,7 +8,7 @@ import { Product } from '../models/product.model';
 })
 export class ProductService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/products';
+  private apiUrl = 'https://backend-inventary-system-ii.onrender.com/api/products';
 
 
   private getToken(): string | null {

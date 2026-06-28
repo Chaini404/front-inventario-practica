@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = 'https://backend-inventary-system-ii.onrender.com/auth';
 
   register(user: any): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}/register`, user, {
